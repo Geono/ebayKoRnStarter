@@ -1,0 +1,3 @@
+rootProject.name = 'ebayKoRnStarter'
+
+include ':app'
