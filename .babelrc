@@ -1,12 +1,5 @@
 {
-  "presets": ["react-native"],
-  "plugins": [
-    [
-      "module-resolver",
-      {
-        "root": ["./app"],
-        "cwd": "babelrc"
-      }
-    ]
+  "presets": [
+    "react-native"
   ]
 }
