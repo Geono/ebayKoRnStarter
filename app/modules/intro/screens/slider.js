@@ -37,8 +37,10 @@ const slides = [
 ];
 
 class Slider extends React.Component {
+
     _onDone = () => {
-        console.log('done!');
+        const { navigation } = this.props;
+        navigation.navigate('Login');
     };
 
     render() {

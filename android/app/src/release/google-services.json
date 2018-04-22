@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "387266275018",
+    "firebase_url": "https://ebaykornstarter.firebaseio.com",
+    "project_id": "ebaykornstarter",
+    "storage_bucket": "ebaykornstarter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387266275018:android:6e278a69c26345ac",
+        "android_client_info": {
+          "package_name": "com.ebaykornstarter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387266275018-l9iulosfc44coiiea6rn3li9bl8e9ph4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBisvrNuTd3bPfT7xJ-q59DSwuZrtuX5jo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
