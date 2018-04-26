@@ -3,7 +3,7 @@ import { Image } from "react-native";
 import { Container, Content, List, ListItem, Text } from "native-base";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as userActions from 'modules/0-intro/actions/auth';
+import * as userActions from '../../../intro/actions/auth';
 
 const routes = [ "Home", "Chat", "Calendar" ];
 
