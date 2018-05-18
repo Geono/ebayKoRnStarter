@@ -2,7 +2,7 @@ import React from 'react';
 import { Body, Button, Container, Header, Icon, Left, Right, Tab, TabHeading, Tabs, Text, Title } from 'native-base';
 
 import Requests from './tabone';
-import MakeRequest from './tabtwo';
+import MakeRequest from './make-request';
 
 export default class HomeScreen extends React.Component {
     render() {
