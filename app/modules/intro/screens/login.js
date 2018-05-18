@@ -18,7 +18,7 @@ class Login extends React.Component {
                     }
                     buttonText='가입 / 로그인'
                 />
-                <Spinner visible={this.props.authPending} />
+                {this.props.authPending && <Spinner visible={this.props.authPending} />}
             </Container>
         );
     }

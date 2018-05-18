@@ -44,12 +44,11 @@ export const loginOrRegisterWithEmail = (email, password) => (dispatch) => {
                             dispatch(registerByEmailRequest());
                             firebase.auth().createUserWithEmailAndPassword(email, password)
                                 .then((user) => {
-                                    Alert.alert('가입에 성공했습니다. 환영합니다!', null,
-                                        [ { text: '확인', onPress: () => dispatch(registerSuccess(user)) } ],
-                                        { cancelable: false });
+                                    dispatch(registerSuccess(user));
+                                    Alert.alert('가입에 성공했습니다. 환영합니다!');
                                 })
                                 .catch((error) => {
-                                    Alert.alert('가입에 실패했습니다. 환영합니다!', null,
+                                    Alert.alert('가입에 실패했습니다!', null,
                                         [ { text: '확인', onPress: () => dispatch(registerFailed(error)) } ],
                                         { cancelable: false });
                                 });

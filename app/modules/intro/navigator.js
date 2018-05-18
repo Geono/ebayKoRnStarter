@@ -33,7 +33,7 @@ class IntroNavigationContainer extends React.Component {
         const { dispatch, introNavigate } = this.props;
         return (
             <IntroNavigator
-                navigation={addNavigationHelpers({ dispatch, state: introNavigate, addListener })}
+                navigation={{ dispatch, state: introNavigate, addListener }}
             />
         );
     }

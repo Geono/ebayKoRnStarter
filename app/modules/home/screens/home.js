@@ -1,8 +1,8 @@
 import React from 'react';
 import { Body, Button, Container, Header, Icon, Left, Right, Tab, TabHeading, Tabs, Text, Title } from 'native-base';
 
-import Tab1 from './tabone';
-import Tab2 from './tabtwo';
+import Requests from './tabone';
+import MakeRequest from './tabtwo';
 
 export default class HomeScreen extends React.Component {
     render() {
@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
                     <Left>
                         <Button
                             transparent
-                            onPress={() => this.props.navigation.navigate("DrawerOpen")}
+                            onPress={() => this.props.navigation.openDrawer()}
                             title="Open drawer"
                         >
                             <Icon name="menu" />
@@ -24,11 +24,11 @@ export default class HomeScreen extends React.Component {
                     <Right />
                 </Header>
                 <Tabs>
-                    <Tab heading={<TabHeading><Icon name="camera" /><Text>Camera</Text></TabHeading>}>
-                        <Tab1 />
+                    <Tab heading={<TabHeading><Icon name="camera" /><Text>Show Requests</Text></TabHeading>}>
+                        <Requests />
                     </Tab>
-                    <Tab heading={<TabHeading><Text>No Icon</Text></TabHeading>}>
-                        <Tab2 />
+                    <Tab heading={<TabHeading><Text>Make Request</Text></TabHeading>}>
+                        <MakeRequest />
                     </Tab>
                 </Tabs>
             </Container>

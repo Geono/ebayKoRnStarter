@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npm install
+yarn add
 cd ios
 pod install
 cd ../
