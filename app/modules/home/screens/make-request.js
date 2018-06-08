@@ -1,272 +1,200 @@
-import React from 'react';
+import React from "react";
+import { TouchableOpacity, Slider } from "react-native";
+import { Text, View, Content } from "native-base";
+import { RkText, RkTextInput, RkPicker, RkChoiceGroup, RkChoice, RkTheme } from 'react-native-ui-kitten';
 
-import {
-    View,
-    StyleSheet,
-    ScrollView,
-    Image
-} from 'react-native';
-
-import {
-    RkButton,
-    RkText,
-    RkCard,
-    RkTheme
-} from 'react-native-ui-kitten';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import {UtilStyles} from './make-request.style';
-import {ImageIcon} from './imageIcon';
-
-
-class MakeRequest extends React.Component {
-    static navigationOptions = {
-        title: 'Cards'
-    };
-
+class MakeRequest extends React.Component{
     constructor(props) {
         super(props);
+        this.state={
+            partyDatePicker: {
+                pickerVisible: false,
+                pickedValue: [{key: 8, value: 'Aug'}, 26, 2017]
+            },
+            partyTimePicker: {
+                pickerVisible: false,
+                pickedValue: [13, {key: 1, value: '30'}]
+            },
+            partyCountPicker: {
+                pickerVisible: false,
+                pickedValue: [ 2 ]
+            },
+            partyWomenCount:1,
+            partyWomenCountSliderDisable: true
+        };
+        this.hidePicker = this.hidePicker.bind(this);
+        this.handlePickedValue = this.handlePickedValue.bind(this);
     }
 
+    showPicker(picker) {
+        let obj = Object.assign({}, this.state);
+        for(var prop in obj)
+            if(obj[prop] === picker)
+                obj[prop].pickerVisible = true;
+        this.setState(obj);
+
+        // picker.pickerVisible = true;
+        // if(picker === this.state.partyDatePicker)
+        //     this.setState( Object.assign({}, this.state, {partyDatePicker: picker}) );
+        // else if(picker === this.state.partyCountPicker)
+        //     this.setState( Object.assign({}, this.state, {partyCountPicker: picker}) );
+    }
+
+    hidePicker(picker) {
+        let obj = Object.assign({}, this.state);
+        for(var prop in obj)
+            if(obj[prop] === picker)
+                obj[prop].pickerVisible = false;
+        this.setState(obj);
+
+        // picker.pickerVisible = false;
+        // if(picker === this.state.partyDatePicker)
+        //     this.setState( Object.assign({}, this.state, {partyDatePicker: picker}) );
+        // else if(picker === this.state.partyCountPicker)
+        //     this.setState( Object.assign({}, this.state, {partyCountPicker: picker}) );
+    }
+
+    handlePickedValue(picker, value) {
+        let obj = Object.assign({}, this.state);
+        for(var prop in obj)
+            if(obj[prop] === picker)
+                obj[prop].pickedValue = value;
+        this.setState(obj);
+
+        // picker.pickedValue = value;
+        // if(picker === this.state.partyDatePicker)
+        //     this.setState( Object.assign({}, this.state, {partyDatePicker: picker}) );
+        // else if(picker === this.state.partyCountPicker)
+        //     this.setState( Object.assign({}, this.state, {partyCountPicker: picker}) );
+        this.hidePicker(picker);
+    }
+
+    generateArrayFromRange(start, finish) {
+        return Array.apply(null, Array(finish - start + 1)).map((_, i) => start + i);
+    }
     render() {
-        let likeStyle = [styles.buttonIcon, {color: RkTheme.colors.accent}];
-        let iconButton = [styles.buttonIcon, {color: RkTheme.current.colors.text.hint}];
+        let days = this.generateArrayFromRange(1, 31);
+        let years = this.generateArrayFromRange(1985, 2025);
+        let months = [
+            {key: 1, value: 'Jun'}, {key: 2, value: 'Feb'},
+            {key: 3, value: 'Mar'}, {key: 4, value: 'Apr'},
+            {key: 5, value: 'May'}, {key: 6, value: 'Jun'},
+            {key: 7, value: 'Jul'}, {key: 8, value: 'Aug'},
+            {key: 9, value: 'Sep'}, {key: 10, value: 'Oct'},
+            {key: 11, value: 'Nov'}, {key: 12, value: 'Dec'},
+        ];
+        let hours = this.generateArrayFromRange(0,23);
+        let minutes = [ {key: 0, value: '00'}, {key: 1, value: '30'} ]
+        let partyCounts = [ 2,3,4,5,6,7,8 ];
+        RkTheme.setType('RkPicker','rounded',{
+            windowBorderRadius: 15,
+            windowBorderWidth: 0.5,
+            windowBorderColor: 'black',
+        });
         return (
-            <View style={{flex: 1}}>
-
-                <ScrollView
-                    automaticallyAdjustContentInsets={true}
-                    style={[UtilStyles.container, styles.screen]}>
-                    <RkCard>
-                        <View rkCardHeader>
-                            <View>
-                                <RkText rkType='header'>Header</RkText>
-                                <RkText rkType='subtitle'>Subtitle</RkText>
-                            </View>
-                        </View>
-                        <Image rkCardImg source={require('../../../assets/post1.png')}/>
-                        <View rkCardContent>
-                            <RkText rkType='cardText'>Far far away, behind the word mountains, far from the countries Vokalia and
-                                Consonantia, there live the blind texts.</RkText>
-                        </View>
-                        <View rkCardFooter>
-                            <RkButton rkType='clear link'>
-                                <Icon name="heart" style={likeStyle}/>
-                                <RkText rkType='accent'>18 Likes</RkText>
-                            </RkButton>
-                            <RkButton rkType='clear link'>
-                                <Icon name="comment-o" style={iconButton}/>
-                                <RkText rkType='hint'>2 Comments</RkText>
-                            </RkButton>
-                            <RkButton rkType='clear link'>
-                                <Icon name="send-o" style={iconButton}/>
-                                <RkText rkType='hint'>6 Shares</RkText>
-                            </RkButton>
-                        </View >
-                    </RkCard>
-
-                    <RkCard>
-                        <View rkCardHeader>
-                            <View>
-                                <RkText rkType='header'>Header</RkText>
-                                <RkText rkType='subtitle'>Subtitle</RkText>
-                            </View>
-                        </View>
-                        <Image rkCardImg source={require('../../../assets/post2.png')}/>
-                        <View rkCardContent>
-                            <RkText rkType='cardText'>Far far away, behind the word mountains, far from the countries Vokalia and
-                                Consonantia, there live the blind texts.</RkText>
-                        </View>
-                        <View rkCardFooter style={styles.footer}>
-                            <RkButton rkType='clear link accent'>
-                                <Icon name="heart" style={likeStyle}/>
-                                <RkText rkType='accent'>18</RkText>
-                            </RkButton>
-                            <RkButton rkType='clear link'>
-                                <Icon name="comment-o" style={iconButton}/>
-                                <RkText rkType='hint'>2</RkText>
-                            </RkButton>
-                            <RkButton rkType='clear link'>
-                                <Icon name="send-o" style={iconButton}/>
-                                <RkText rkType='hint'>6</RkText>
-                            </RkButton>
-                        </View>
-                    </RkCard>
-
-                    <RkCard>
-                        <View rkCardHeader>
-                            <View style={{flexDirection: 'row'}}>
-                                <Image source={require('../../../assets/avatar1.png')} style={styles.avatar}/>
-                                <View style={{}}>
-                                    <RkText rkType='header'>Elena Zhukova</RkText>
-                                    <RkText rkType='subtitle'>6 minutes ago</RkText>
-                                </View>
-                            </View>
-
-                            <RkButton rkType='clear'>
-                                <Icon style={styles.dot} name={'circle'}/>
-                                <Icon style={styles.dot} name={'circle'}/>
-                                <Icon style={styles.dot} name={'circle'}/>
-                            </RkButton>
-                        </View>
-                        <View rkCardContent>
-                            <RkText rkType='cardText'>Far far away, behind the word mountains, far from the countries Vokalia and
-                                Consonantia, there live the blind texts.</RkText>
-                        </View>
-                        <View rkCardFooter style={styles.footer}>
-                            <RkButton rkType='clear link accent'>
-                                <Icon name="heart" style={likeStyle}/>
-                                <RkText rkType='accent'>18</RkText>
-                            </RkButton>
-                            <RkButton rkType='clear link'>
-                                <Icon name="comment-o" style={iconButton}/>
-                                <RkText rkType='hint'>2</RkText>
-                            </RkButton>
-                            <RkButton rkType='clear link'>
-                                <Icon name="send-o" style={iconButton}/>
-                                <RkText rkType='hint'>6</RkText>
-                            </RkButton>
-                        </View>
-                    </RkCard>
-
-                    <RkCard rkType='shadowed'>
+            <View style={{ flex: 1 }}>
+                <Content automaticallyAdjustContentInsets={true} >
+                    <View>
+                        <RkText>접선 위치</RkText>
+                        <RkTextInput />
+                    </View>
+                    <View>
+                        <RkText>밥집 이름</RkText>
+                        <RkTextInput />
+                    </View>
+                    <View>
                         <View>
-                            <Image rkCardImg source={require('../../../assets/post3.png')}/>
-                            <View rkCardImgOverlay/>
+                            <RkText>모집인원 </RkText>
+                            <TouchableOpacity onPress={() => this.showPicker(this.state.partyCountPicker)}>
+                                <RkText>
+                                    {this.state.partyCountPicker.pickedValue} 명
+                                </RkText>
+                            </TouchableOpacity>
+                            <RkPicker
+                                rkType='rounded'
+                                title='인원수'
+                                data={[partyCounts]}
+                                visible={this.state.partyCountPicker.pickerVisible}
+                                onConfirm={(value) => {this.handlePickedValue(this.state.partyCountPicker, value)}}
+                                onCancel={() => {this.hidePicker(this.state.partyCountPicker)}}
+                                selectedOptions={this.state.partyCountPicker.pickedValue}
+                            />
                         </View>
-                        <RkButton rkType='circle accent-bg' style={styles.floating}>
-                            <ImageIcon name='plus'/>
-                        </RkButton>
-
-                        <View rkCardHeader style={{paddingBottom: 2.5}}>
-                            <View>
-                                <RkText rkType='header xxlarge'>Header</RkText>
-                                <RkText rkType='subtitle'>Subtitle</RkText>
-                            </View>
-                        </View>
-                        <View rkCardContent>
-                            <RkText rkType='compactCardText'>Far far away, behind the word mountains, far from the countries Vokalia
-                                and
-                                Consonantia, there live the blind texts.</RkText>
-                        </View>
-                        <View rkCardFooter>
-                            <View style={styles.footerButtons}>
-                                <RkButton rkType='clear action' style={{marginRight: 16}}>SHARE</RkButton>
-                                <RkButton rkType='clear action'>EXPLORE</RkButton>
-                            </View>
-                        </View>
-                    </RkCard>
-
-                    <RkCard rkType='shadowed'>
                         <View>
-                            <Image rkCardImg source={require('../../../assets/post4.png')}/>
-                            <View rkCardImgOverlay style={styles.overlay}>
-                                <RkText rkType='header xxlarge' style={{color: 'white'}}>Header</RkText>
+                            <RkText>성비</RkText>
+                            <RkChoiceGroup
+                                selectedIndex={1}
+                                radio
+                                onChange={index => { this.setState(Object.assign({}, this.state, { partyWomenCountSliderDisable: (index)?false:true }))}}
+                            >
+                                <TouchableOpacity choiceTrigger>
+                                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                                        <RkChoice rkType='radio' /><RkText>성별 무관</RkText>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity choiceTrigger>
+                                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                                        <RkChoice rkType='radio' /><RkText>성별 섞어서</RkText>
+                                    </View>
+                                </TouchableOpacity>
+                            </RkChoiceGroup>
+                            <View style={{flexDirection:'row', alignItems:'center'}} >
+                                <RkText>{this.state.partyCountPicker.pickedValue[0]-this.state.partyWomenCount} 남성</RkText>
+                                <Slider
+                                    disabled={this.state.partyWomenCountSliderDisable}
+                                    style={{ width: 300 }}
+                                    step={1}
+                                    minimumValue={0} // 사용자의 성별 필요
+                                    maximumValue={this.state.partyCountPicker.pickedValue[0]}
+                                    value={this.state.partyWomenCount}
+                                    onValueChange={val => this.setState(Object.assign({}, this.state, { partyWomenCount: val }))}
+                                    onSlidingComplete={val => this.setState(Object.assign({}, this.state, { partyWomenCount: val }))}
+                                />
+                                <RkText>여성 {this.state.partyWomenCount}</RkText>
                             </View>
                         </View>
-                        <RkButton rkType='circle accent-bg' style={styles.floating}>
-                            <ImageIcon name='plus'/>
-                        </RkButton>
-
-                        <View rkCardHeader style={{paddingBottom: 2.5}}>
-                            <View>
-
-                                <RkText rkType='subtitle'>Subtitle</RkText>
-                            </View>
-                        </View>
-                        <View rkCardContent>
-                            <RkText rkType='compactCardText'>Far far away, behind the word mountains, far from the countries Vokalia
-                                and
-                                Consonantia, there live the blind texts.</RkText>
-                        </View>
-                        <View rkCardFooter>
-                            <View style={styles.footerButtons}>
-                                <RkButton rkType='clear action' style={{marginRight: 16}}>SHARE</RkButton>
-                                <RkButton rkType='clear action'>EXPLORE</RkButton>
-                            </View>
-                        </View>
-                    </RkCard>
-
-                    <RkCard rkType='heroImage shadowed'>
                         <View>
-                            <Image rkCardImg source={require('../../../assets/post5.png')}/>
-                            <View rkCardImgOverlay style={styles.overlay}>
-                                <View style={{marginBottom: 20}}>
-                                    <RkText rkType='header xxlarge' style={{color: 'white'}}>Header</RkText>
-                                    <RkText rkType='subtitle' style={{color: 'white'}}>Subtitle</RkText>
-                                </View>
-                                <View style={styles.footerButtons}>
-                                    <RkButton rkType='clear' style={{marginRight: 16}}>SHARE</RkButton>
-                                    <RkButton rkType='clear '>EXPLORE</RkButton>
-                                </View>
-                            </View>
+                            <RkText>접선 날짜와 시간</RkText>
+                            <TouchableOpacity onPress={() => this.showPicker(this.state.partyDatePicker)}>
+                                <RkText>
+                                    {this.state.partyDatePicker.pickedValue[0].value}.
+                                    {this.state.partyDatePicker.pickedValue[1]}.
+                                    {this.state.partyDatePicker.pickedValue[2]}
+                                </RkText>
+                            </TouchableOpacity>
+                            <RkPicker
+                                rkType='rounded'
+                                title='접선 날짜'
+                                data={[months, days, years ]}
+                                visible={this.state.partyDatePicker.pickerVisible}
+                                onConfirm={(value) => {this.handlePickedValue(this.state.partyDatePicker, value)}}
+                                onCancel={() => {this.hidePicker(this.state.partyDatePicker)}}
+                                selectedOptions={this.state.partyDatePicker.pickedValue}
+                            />
+                            <TouchableOpacity onPress={() => this.showPicker(this.state.partyTimePicker)}>
+                                <RkText>
+                                    {this.state.partyTimePicker.pickedValue[0]}:{this.state.partyTimePicker.pickedValue[1].value}
+                                </RkText>
+                            </TouchableOpacity>
+                            <RkPicker
+                                rkType='rounded'
+                                title='접선 시간'
+                                data={[ hours, minutes ]}
+                                visible={this.state.partyTimePicker.pickerVisible}
+                                onConfirm={(value) => {this.handlePickedValue(this.state.partyTimePicker, value)}}
+                                onCancel={() => {this.hidePicker(this.state.partyTimePicker)}}
+                                selectedOptions={this.state.partyTimePicker.pickedValue}
+                            />
                         </View>
-                    </RkCard>
-                    <RkCard>
-                        <View rkCardHeader>
-                            <View>
-                                <RkText rkType='header'>Header</RkText>
-                                <RkText rkType='subtitle'>Subtitle</RkText>
-                            </View>
+                        <View>
+                            <RkText>남길 말</RkText>
+                            <RkTextInput placeholder='긱삼기 화이팅' />
                         </View>
-                        <View rkCardContent style={{paddingTop: 0}}>
-                            <RkText rkType='compactCardText'>The Big Oxmox advised her not to do so, because there were thousands of
-                                bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.</RkText>
-                        </View>
-                        <View rkCardFooter>
-                            <View style={styles.footerButtons}>
-                                <RkButton rkType='clear action' style={{marginRight: 16}}>SHARE</RkButton>
-                                <RkButton rkType='clear action'>EXPLORE</RkButton>
-                            </View>
-                        </View>
-                    </RkCard>
-                </ScrollView>
+                    </View>
+                </Content>
             </View>
-        )
+        );
     }
 }
-
-let styles = StyleSheet.create({
-    screen: {
-        backgroundColor: '#f0f1f5',
-        padding: 12
-    },
-    buttonIcon: {
-        marginRight: 7,
-        fontSize: 19.7,
-    },
-    footer: {
-        marginHorizontal: 16
-    },
-    avatar: {
-        width: 42,
-        height: 42,
-        borderRadius: 21,
-        marginRight: 17
-    },
-    dot: {
-        fontSize: 6.5,
-        color: '#0000008e',
-        marginLeft: 2.5,
-        marginVertical: 10,
-    },
-    floating: {
-        width: 56,
-        height: 56,
-        position: 'absolute',
-        zIndex: 200,
-        right: 16,
-        top: 173,
-    },
-    footerButtons: {
-        flexDirection: 'row'
-    },
-    overlay: {
-        justifyContent: 'flex-end',
-        paddingVertical: 23,
-        paddingHorizontal: 16
-    }
-});
 
 export default MakeRequest;

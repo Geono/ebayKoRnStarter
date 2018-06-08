@@ -48,9 +48,21 @@ export const loginOrRegisterWithEmail = (email, password) => (dispatch) => {
                                     Alert.alert('가입에 성공했습니다. 환영합니다!');
                                 })
                                 .catch((error) => {
-                                    Alert.alert('가입에 실패했습니다!', null,
-                                        [ { text: '확인', onPress: () => dispatch(registerFailed(error)) } ],
-                                        { cancelable: false });
+                                    // Handle Errors here.
+                                    var errorCode = error.code;
+                                    var errorMessage = error.message;
+                                    if (errorCode == 'auth/weak-password') {
+                                        Alert.alert('The password is too weak.', null,
+                                            [ { text: '확인', onPress: () => dispatch(registerFailed(error)) } ],
+                                            { cancelable: false });
+                                    } else {
+                                        Alert.alert(errorMessage, null,
+                                            [ { text: '확인', onPress: () => dispatch(registerFailed(error)) } ],
+                                            { cancelable: false });
+                                    }
+                                    // Alert.alert('가입에 실패했습니다!', null,
+                                    //     [ { text: '확인', onPress: () => dispatch(registerFailed(error)) } ],
+                                    //     { cancelable: false });
                                 });
                         }
                     } ], { cancelable: false });
